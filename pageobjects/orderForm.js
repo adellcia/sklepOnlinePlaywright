@@ -21,7 +21,6 @@ class OrderFormValidation {
         this.checkoutButton2 = page.locator('[title="Checkout"]')
         this.guestRadioButton = page.locator('[value="guest"]')
         this.continueButton = page.locator('[title="Continue"]')
-
         this.firstNameField = page.locator('[id="guestFrm_firstname"]')
         this.lastNameField = page.locator('[id="guestFrm_lastname"]')
         this.emailField =page.locator('[id="guestFrm_email"]')
@@ -30,10 +29,10 @@ class OrderFormValidation {
         this.regionStateField = page.locator('[id="guestFrm_zone_id"]')
         this.zipField = page.locator('[id="guestFrm_postcode"]')
         this.countryField = page.locator('[id="guestFrm_country_id"]')
+        this.submitButton = page.locator('[title="Continue"]')
 
         const helpBlock = page.locator('[class="help-block"]')
     }
-
 async clearingForm() {
     await this.firstNameField.clear()
     await this.lastNameField.clear()
@@ -42,93 +41,71 @@ async clearingForm() {
     await this.cityField.clear()
     await this.zipField.clear()
     }
-
-async valdationAssert() {
-    await expect(helpblock).toBeVisible()
-    }
-
-async validationLoop() {
-    await this.checkoutButton.click()
-    await this.guestRadioButton.click()
-    await this.continueButton.click()
-    await this.firstNameField.type(FN)
-    await this.lastNameField.type(LN)
-    await this.emailField.type(EMAIL)
-    await this.adressField.type(ADRESS)
-    await this.cityField.type(CITY)
-    await this.countryField.selectText('United Kingdom')
-    await this.regionStateField.selectOption('3513')
-    await this.zipField.type(ZIP)
-    await this.firstNameField.clear()
-    await this.continueButton.click()
+    async valdationAssert() {
+        await expect(helpblock).toBeVisible()
     }  
-    
     async clickSubmitButton() {
-        const submitButton = page.locator('[title="Continue"]')
         await submitButton.click()
       }
-
-      async checkoutAndFormFilling(field, value) {
+    async checkoutAndFormFilling(field, value) {
         await this.checkoutButton.click()
         await this.guestRadioButton.click()
         await this.continueButton.click()
         await this[field].type(value)
       }
-
-      async clearField(field) {
+    async clearField(field) {
         await this[field].click({ clickCount: 3 })
         await this[field].press('Backspace')
       }
-
-    async emailValidation() {
-    await this.checkoutButton.click()
-    await this.guestRadioButton.click()
-    await this.continueButton.click()
-    await this.firstNameField.type(FN)
-    await this.lastNameField.type(LN)
-    await this.emailField.type('brad.pitt.email.com')
-    await this.adressField.type(ADRESS)
-    await this.cityField.type(CITY)
-    await this.countryField.selectText('United Kingdom')
-    await this.regionStateField.selectOption('3513')
-    await this.zipField.type(ZIP)
-    await this.continueButton.click()
-    }  
-
-    async less3Validation() {
+    async emailValidation(fn, ln, email, adress, city, country, state, zip) {
         await this.checkoutButton.click()
         await this.guestRadioButton.click()
         await this.continueButton.click()
-        await this.firstNameField.type('BR')
-        await this.lastNameField.type(LN)
-        await this.emailField.type(EMAIL)
-        await this.adressField.type(ADRESS)
-        await this.cityField.type(CITY)
-        await this.countryField.selectText('United Kingdom')
-        await this.regionStateField.selectOption('3513')
-        await this.zipField.type(ZIP)
+        if (fn) {await this.firstNameField.type(fn)}
+        if (ln) {await this.lastNameField.type(ln)}
+        if (email) {await this.emailField.type(email)}
+        if (adress) {await this.adressField.type(adress)}
+        if (city) {await this.cityField.type(city)}
+        if (country) {await this.countryField.selectText(country)}
+        if (state) {await this.regionStateField.selectOption(state)}
+        if (zip) {await this.zipField.type(zip)}
+        await this.continueButton.click()
+    }  
+
+    async less3Validation(fn, ln, email, adress, city, country, state, zip) {
+        await this.checkoutButton.click()
+        await this.guestRadioButton.click()
+        await this.continueButton.click()
+        if (fn) {await this.firstNameField.type(fn)}
+        if (ln) {await this.lastNameField.type(ln)}
+        if (email) {await this.emailField.type(email)}
+        if (adress) {await this.adressField.type(adress)}
+        if (city) {await this.cityField.type(city)}
+        if (country) {await this.countryField.selectText(country)}
+        if (state) {await this.regionStateField.selectOption(state)}
+        if (zip) {await this.zipField.type(zip)}
         await this.continueButton.click()
         }  
-    async more128Validation() {
-        await this.firstNameField.type('Meditation gentrify fam, yuccie kickstarter brunch vape. Pitchfork freegan biodiesel bicycle rights. Semiotics flexitarian four Frugo.')
-        await this.lastNameField.type(LN)    
-        await this.emailField.type(EMAIL)
-        await this.adressField.type(ADRESS)
-        await this.cityField.type(CITY)
-        await this.countryField.selectText('United Kingdom')
-        await this.regionStateField.selectOption('3513')
-        await this.zipField.type(ZIP)
+    async more128Validation(fn, ln, email, adress, city, country, state, zip) {
+        if (fn) {await this.firstNameField.type(fn)}
+        if (ln) {await this.lastNameField.type(ln)}
+        if (email) {await this.emailField.type(email)}
+        if (adress) {await this.adressField.type(adress)}
+        if (city) {await this.cityField.type(city)}
+        if (country) {await this.countryField.selectText(country)}
+        if (state) {await this.regionStateField.selectOption(state)}
+        if (zip) {await this.zipField.type(zip)}
         await this.continueButton.click()
         } 
-    async zipValidation() {
-        await this.firstNameField.type(FN)
-        await this.lastNameField.type(LN)
-        await this.emailField.type(EMAIL)
-        await this.adressField.type(ADRESS)
-        await this.cityField.type(CITY)
-        await this.countryField.selectText('United Kingdom')
-        await this.regionStateField.selectOption('3513')
-        await this.zipField.type('0')
+    async zipValidation(fn, ln, email, adress, city, country, state, zip) {
+        if (fn) {await this.firstNameField.type(fn)}
+        if (ln) {await this.lastNameField.type(ln)}
+        if (email) {await this.emailField.type(email)}
+        if (adress) {await this.adressField.type(adress)}
+        if (city) {await this.cityField.type(city)}
+        if (country) {await this.countryField.selectText(country)}
+        if (state) {await this.regionStateField.selectOption(state)}
+        if (zip) {await this.zipField.type(zip)}
         await this.continueButton.click()
         } 
     

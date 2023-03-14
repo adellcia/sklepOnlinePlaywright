@@ -1,12 +1,5 @@
 const { goingToPage } = require('./Navigation')
-const FN = ('Brad')
-const LN = ('Pitt')
-const EMAIL = ('brad.pitt@wp.pl')
-const ADRESS = ('Lipowa')
-const CITY = ('Bialystok')
-const ZIP = ('15-111') 
-//const COUNTRY = ('Poland')
-//const STATE = ('[value="3513"]')
+const { expect } = require('@playwright/test');
 
 class PageObjectsManager {
     constructor(page) {
@@ -23,7 +16,6 @@ class PageObjectsManager {
         this.checkoutButton = page.locator('[id="cart_checkout2"]')
         this.guestRadioButton = page.locator('[value="guest"]')
         this.continueButton = page.locator('[title="Continue"]')
-
         this.firstNameField = page.locator('[id="guestFrm_firstname"]')
         this.lastNameField = page.locator('[id="guestFrm_lastname"]')
         this.emailField =page.locator('[id="guestFrm_email"]')
@@ -33,10 +25,8 @@ class PageObjectsManager {
         this.zipField = page.locator('[id="guestFrm_postcode"]')
         this.countryField = page.locator('[id="guestFrm_country_id"]')
         this.confirmationButton = page.locator('[title="Confirm Order"]')
-        
-        
+        this.thumbsUp = page.locator('[class="fa fa-thumbs-up"]') 
     }
-
 async addShoesAndTshirt() {
    await this.aaTabButton.click()
    await this.shoesButton.click()
@@ -47,28 +37,26 @@ async addShoesAndTshirt() {
    await this.elegantTshirt.click()
    await this.addToCartButton.click()
 }
-async searchForCosmetics() {
-    await this.searchField.type('lipstick')
+async searchForCosmetics(product) {
+    if (product) {await this.searchField.type(product)}
     await this.searchButton.click()
     await this.addToCartButton.click()
-
 }
-async checkoutAndFormFilling() {
+async checkoutAndFormFilling(fn, ln, email, adress, city, country, state, zip ) {
     await this.checkoutButton.click()
     await this.guestRadioButton.click()
     await this.continueButton.click()
-    await this.firstNameField.type(FN)
-    await this.lastNameField.type(LN)
-    await this.emailField.type(EMAIL)
-    await this.adressField.type(ADRESS)
-    await this.cityField.type(CITY)
-    await this.countryField.selectText('United Kingdom')
-    await this.regionStateField.selectOption('3513')
-    await this.zipField.type(ZIP)
+    if (fn) {await this.firstNameField.type(fn)}
+    if (ln) {await this.lastNameField.type(ln)}
+    if (email) {await this.emailField.type(email)}
+    if (adress) {await this.adressField.type(adress)}
+    if (city) {await this.cityField.type(city)}
+    if (country) {await this.countryField.selectText(country)}
+    if (state) {await this.regionStateField.selectOption(state)}
+    if (zip) {await this.zipField.type(zip)}
     await this.continueButton.click()
     await this.confirmationButton.click()
-    const finalAssertion = page.locator('class="fa fa-thumbs-up"')
-    await expect(finalAssertion).toBeVisible()
+    await expect(this.thumbsUp).toBeVisible()
 }
 
 }

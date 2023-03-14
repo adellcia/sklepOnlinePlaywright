@@ -13,8 +13,7 @@ test.describe('1 test', () => {
     await pageObjectsManager.goToPage.mainPage()
     await pageObjectsManager.addShoesAndTshirt()
     await pageObjectsManager.searchForCosmetics()
-    await pageObjectsManager.checkoutAndFormFilling()
-    
+    await pageObjectsManager.checkoutAndFormFilling('Brad', 'Pitt', 'brad.pitt@wp.pl', 'Lipowa', 'Bialystok', 'United Kingdom', '3513', '15-111') 
 })
 
    test('Order form validation', async ({ page }) => {
@@ -23,7 +22,7 @@ test.describe('1 test', () => {
     const orderForm = new OrderFormValidation(page)
     const helpBlock = page.locator('.help-block:visible')
     await pageObjectsManager.goToPage.mainPage()
-    await pageObjectsManager.searchForCosmetics()
+    await pageObjectsManager.searchForCosmetics('lipstick')
 
     const formFields = [
         { field: 'firstNameField', value: 'Brad' },
@@ -43,7 +42,6 @@ test.describe('1 test', () => {
         await expect(helpBlock).toBeVisible()
         await orderForm.clearField(formFields[i].field)
     })
-
 }
 })
 
@@ -52,12 +50,13 @@ test.describe('1 test', () => {
         const orderForm = new OrderFormValidation(page)
         const helpBlock = page.locator('.help-block:visible')
         await pageObjectsManager.goToPage.mainPage()
-        await pageObjectsManager.searchForCosmetics()
+        await pageObjectsManager.searchForCosmetics('lipstick')
 
         const formValidationMethods = [
-            orderForm.less3Validation,
-            orderForm.more128Validation,
-            orderForm.zipValidation,
+            orderForm.emailValidation('Brad', 'Pitt', 'brad.pitt.wp.pl', 'Lipowa', 'Bialystok', 'United Kingdom', '3513', '15-111'),
+            orderForm.less3Validation('BR', 'Pitt', 'brad.pitt@wp.pl', 'Lipowa', 'Bialystok', 'United Kingdom', '3513', '15-111'),
+            orderForm.more128Validation('Meditation gentrify fam, yuccie kickstarter brunch vape. Pitchfork freegan biodiesel bicycle rights. Semiotics flexitarian four Frugo.', 'Pitt', 'brad.pitt@wp.pl', 'Lipowa', 'Bialystok', 'United Kingdom', '3513', '15-111'),
+            orderForm.zipValidation('Brad', 'Pitt', 'brad.pitt@wp.pl', 'Lipowa', 'Bialystok', 'United Kingdom', '3513', '1'),
         ]
         console.log(formValidationMethods)
     for (const formValidationMethod of formValidationMethods) {

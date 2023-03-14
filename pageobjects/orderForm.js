@@ -1,15 +1,5 @@
 const { goingToPage } = require('./Navigation')
 
-const FN = ('Brad')
-const LN = ('Pitt')
-const EMAIL = ('brad.pitt@wp.pl')
-const ADRESS = ('Lipowa')
-const CITY = ('Bialystok')
-const ZIP = ('15-111') 
-
-//const COUNTRY = ('Poland')
-//const STATE = ('[value="3513"]')
-
 class OrderFormValidation {
     constructor(page) {
         this.page = page

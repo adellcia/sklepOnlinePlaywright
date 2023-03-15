@@ -3,6 +3,15 @@ const { PageObjectsManager } = require('../pageobjects/pageObjectsManager')
 const { goingToPage } = require('../pageobjects/Navigation');
 const { OrderFormValidation } = require('../pageobjects/orderForm');
 
+const fn = ('Brad')
+const ln = ('Pitt')
+const email = ('brad.pitt@wp.pl')
+const street = ('Lipowa')
+const city = ('Bialystok')
+const country = ('United Kingdom')
+const state = ('3513')
+const zip = ('15-111')
+const product = ('lipstick')
 
 test.describe('1 test', () => {
    
@@ -13,7 +22,7 @@ test.describe('1 test', () => {
     await pageObjectsManager.goToPage.mainPage()
     await pageObjectsManager.addShoesAndTshirt()
     await pageObjectsManager.searchForCosmetics()
-    await pageObjectsManager.checkoutAndFormFilling('Brad', 'Pitt', 'brad.pitt@wp.pl', 'Lipowa', 'Bialystok', 'United Kingdom', '3513', '15-111') 
+    await pageObjectsManager.checkoutAndFormFilling(fn, ln, email, street, city, country, state, zip) 
 })
 
    test('Order form validation', async ({ page }) => {
@@ -50,13 +59,13 @@ test.describe('1 test', () => {
         const orderForm = new OrderFormValidation(page)
         const helpBlock = page.locator('.help-block:visible')
         await pageObjectsManager.goToPage.mainPage()
-        await pageObjectsManager.searchForCosmetics('lipstick')
+        await pageObjectsManager.searchForCosmetics(product)
 
         const formValidationMethods = [
-            orderForm.emailValidation('Brad', 'Pitt', 'brad.pitt.wp.pl', 'Lipowa', 'Bialystok', 'United Kingdom', '3513', '15-111'),
-            orderForm.less3Validation('BR', 'Pitt', 'brad.pitt@wp.pl', 'Lipowa', 'Bialystok', 'United Kingdom', '3513', '15-111'),
-            orderForm.more128Validation('Meditation gentrify fam, yuccie kickstarter brunch vape. Pitchfork freegan biodiesel bicycle rights. Semiotics flexitarian four Frugo.', 'Pitt', 'brad.pitt@wp.pl', 'Lipowa', 'Bialystok', 'United Kingdom', '3513', '15-111'),
-            orderForm.zipValidation('Brad', 'Pitt', 'brad.pitt@wp.pl', 'Lipowa', 'Bialystok', 'United Kingdom', '3513', '1'),
+            orderForm.emailValidation(fn, ln, 'bard.pitt.email.com', street, city, country, state, zip),
+            orderForm.less3Validation('BR', ln, email, street, city, country, state, '15-111'),
+            orderForm.more128Validation('Meditation gentrify fam, yuccie kickstarter brunch vape. Pitchfork freegan biodiesel bicycle rights. Semiotics flexitarian four Frugo.', ln, email, street, city, country, state, zip),
+            orderForm.zipValidation(fn, ln, email, street, city, country, state, '1'),
         ]
         console.log(formValidationMethods)
     for (const formValidationMethod of formValidationMethods) {
